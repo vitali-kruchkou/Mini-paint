@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "modules/*": ["./src/modules/*"],
+      "providers": ["providers/*"],
+      "routes/*": ["routes/*"],
+      "hooks/*": ["hooks/*"],
+      "firebase": ["firebase/index"]
+    }
+  }
+}
