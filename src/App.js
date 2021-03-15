@@ -1,5 +1,5 @@
-import Canvas from 'modules/Canvas/Canvas';
 import React from 'react';
+import Canvas from 'modules/Canvas/Canvas';
 
 import './App.css';
 
