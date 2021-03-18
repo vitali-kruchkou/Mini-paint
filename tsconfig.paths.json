@@ -6,7 +6,9 @@
       "providers": ["providers/*"],
       "routes/*": ["routes/*"],
       "hooks/*": ["hooks/*"],
-      "firebase": ["firebase/index"]
+      "firebase": ["firebase/index"],
+      "types/*": ["./src/types/*"],
+      "store/*": ["./src/store/*"]
     }
   }
 }
