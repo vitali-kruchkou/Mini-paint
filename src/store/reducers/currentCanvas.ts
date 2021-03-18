@@ -40,69 +40,64 @@ const currentCanvas = (
       };
     }
 
-    case UNDO: {
-      if (state.canvasRef) {
-        const canvas: CanvasRenderingContext2D | null = state.canvasRef.getContext(
-          '2d',
-        );
-        if (state.undo.length > 0) {
-          const dataUrl = state.undo.pop();
-          state.redo.push(state.canvasRef.toDataURL());
-          const img = new Image();
-          img.src = dataUrl;
-          img.onload = () => {
-            canvas.clearRect(
-              0,
-              0,
-              state.canvasRef.width,
-              state.canvasRef.height,
-            );
-            canvas.drawImage(
-              img,
-              0,
-              0,
-              state.canvasRef.width,
-              state.canvasRef.height,
-            );
-          };
-        } else {
-          canvas.clearRect(0, 0, state.canvasRef.width, state.canvasRef.height);
-        }
+    case REDO: {
+      const canvas: CanvasRenderingContext2D | null = state.canvasRef.getContext(
+        '2d',
+      );
+
+      if (state.undo.length > 0) {
+        const dataUrl = state.undo.pop();
+        state.redo.push(state.canvasRef.toDataURL());
+        const img = new Image();
+        img.src = dataUrl;
+        img.onload = () => {
+          canvas?.clearRect(
+            0,
+            0,
+            state.canvasRef.width,
+            state.canvasRef.height,
+          );
+          canvas?.drawImage(
+            img,
+            0,
+            0,
+            state.canvasRef.width,
+            state.canvasRef.height,
+          );
+        };
       }
       return {
         ...state,
       };
     }
 
-    case REDO: {
-      if (state.canvasRef) {
-        const canvas: CanvasRenderingContext2D | null = state.canvasRef.getContext(
-          '2d',
-        );
-        if (state.redo.length > 0) {
-          const dataUrl = state.redo.pop();
-          state.undo.push(state.canvasRef.toDataURL());
-          const img = new Image();
-          img.src = dataUrl;
-          img.onload = () => {
-            canvas.clearRect(
-              0,
-              0,
-              state.canvasRef.width,
-              state.canvasRef.height,
-            );
-            canvas.drawImage(
-              img,
-              0,
-              0,
-              state.canvasRef.width,
-              state.canvasRef.height,
-            );
-          };
-        } else {
-          canvas.clearRect(0, 0, state.canvasRef.width, state.canvasRef.height);
-        }
+    case UNDO: {
+      const canvas: CanvasRenderingContext2D | null = state.canvasRef.getContext(
+        '2d',
+      );
+
+      if (state.redo.length > 0) {
+        const dataUrl = state.redo.pop();
+        state.undo.push(state.canvasRef.toDataURL());
+        const img = new Image();
+        img.src = dataUrl;
+        img.onload = () => {
+          canvas?.clearRect(
+            0,
+            0,
+            state.canvasRef.width,
+            state.canvasRef.height,
+          );
+          canvas?.drawImage(
+            img,
+            0,
+            0,
+            state.canvasRef.width,
+            state.canvasRef.height,
+          );
+        };
       }
+
       return {
         ...state,
       };
