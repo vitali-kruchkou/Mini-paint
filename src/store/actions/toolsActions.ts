@@ -1,10 +1,10 @@
+import { ToolType } from '../../type/types.d';
 import {
   SET_FILL_COLOR,
   SET_LINE_WIDTH,
   SET_STROKE_COLOR,
   SET_TOOL,
-  ToolType,
-} from '../../type/types.d';
+} from './constans.d';
 
 const setTool = (tool: ToolType) => {
   return {

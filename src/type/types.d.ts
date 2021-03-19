@@ -1,18 +1,15 @@
-import Brush from 'modules/Tools/Brush';
-import Circle from 'modules/Tools/Circle';
-import Line from 'modules/Tools/Line';
-import Rectangle from 'modules/Tools/Rectangle';
-
-export const SET_REF = 'SET_REF';
-export const PUSH_TO_UNDO = 'PUSH_TO_UNDO';
-export const PUSH_TO_REDO = 'PUSH_TO_REDO';
-export const UNDO = 'UNDO';
-export const REDO = 'REDO';
-
-export const SET_TOOL = 'SET_TOOL';
-export const SET_FILL_COLOR = 'SET_FILL_COLOR';
-export const SET_STROKE_COLOR = 'SET_STROKE_COLOR';
-export const SET_LINE_WIDTH = 'SET_LINE_WIDTH';
+import Brush from 'modules/Canvas/Toolbar/Tools/Brush';
+import Circle from 'modules/Canvas/Toolbar/Tools/Circle';
+import Line from 'modules/Canvas/Toolbar/Tools/Line';
+import Rectangle from 'modules/Canvas/Toolbar/Tools/Rectangle';
+import ClearAll from 'modules/Canvas/Toolbar/Tools/ClearAll';
+import {
+  PUSH_TO_REDO,
+  PUSH_TO_UNDO,
+  REDO,
+  SET_REF,
+  UNDO,
+} from 'store/actions/constans';
 
 export type CanvasState = {
   canvasRef: HTMLCanvasElement | null;
@@ -44,7 +41,7 @@ export type CanvasActions =
       type: typeof UNDO;
     };
 
-export type ToolType = Brush | Rectangle | Circle | Line;
+export type ToolType = Brush | Rectangle | Circle | Line | Eraser | ClearAll;
 
 export type ToolsAction =
   | {

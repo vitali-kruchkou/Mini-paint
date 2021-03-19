@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { REDO, SET_REF, UNDO, PUSH_TO_REDO, PUSH_TO_UNDO } from '../../type/types.d';
-
+import { PUSH_TO_REDO, PUSH_TO_UNDO, REDO, SET_REF, UNDO } from './constans.d';
 
 const setRef = (canvasState: HTMLCanvasElement | null) => {
   return {

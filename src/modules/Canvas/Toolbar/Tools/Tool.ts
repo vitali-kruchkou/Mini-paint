@@ -15,6 +15,9 @@ export default class Tool {
     this.canvas.onmousedown = null;
     this.canvas.onmousemove = null;
     this.canvas.onmouseup = null;
+    this.canvas.ontouchstart = null;
+    this.canvas.ontouchend = null;
+    this.canvas.ontouchend = null;
   }
 
   set fillColor(color: string) {

@@ -1,15 +1,14 @@
 import {
-  CanvasActions,
-  CanvasState,
   PUSH_TO_REDO,
   PUSH_TO_UNDO,
   REDO,
   SET_REF,
   UNDO,
-} from '../../type/types.d';
+} from '../actions/constans.d';
+import { CanvasActions, CanvasState } from '../../type/types.d';
 
 const initialState = {
-  canvasRef: null as any,
+  canvasRef: null as null,
   undo: [] as string[],
   redo: [] as string[],
 };
@@ -44,7 +43,7 @@ const currentCanvas = (
       const canvas: CanvasRenderingContext2D | null = state.canvasRef.getContext(
         '2d',
       );
-
+      canvas.globalCompositeOperation = 'source-over';
       if (state.undo.length > 0) {
         const dataUrl = state.undo.pop();
         state.redo.push(state.canvasRef.toDataURL());
@@ -75,7 +74,7 @@ const currentCanvas = (
       const canvas: CanvasRenderingContext2D | null = state.canvasRef.getContext(
         '2d',
       );
-
+      canvas.globalCompositeOperation = 'source-over';
       if (state.redo.length > 0) {
         const dataUrl = state.redo.pop();
         state.undo.push(state.canvasRef.toDataURL());
