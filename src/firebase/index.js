@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/storage';
 import 'firebase/firestore';
 import config from './firebaseConfig';
 import toast from 'react-hot-toast';
@@ -11,6 +12,8 @@ const firebaseApp = !firebase.apps.length
 
 export const auth = firebaseApp.auth();
 export const firestore = firebaseApp.firestore();
+const storage = firebaseApp.storage();
+export const storageRef = storage.ref();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => {
@@ -176,4 +179,46 @@ export const unsubscribeFirestore = (user, day, setTodos) => {
 
 export const SignOut = () => {
   auth.signOut();
+};
+
+export const saveImage = (name, canvas) => {
+  // var canvas = document.querySelector("canvas");
+  if (typeof canvas.toBlob !== 'undefined') {
+    canvas.toBlob(function (blob) {
+      let image = new Image();
+      image.src = blob;
+      let metadata = {
+        contentType: 'image/png',
+      };
+      storageRef
+        .child('images/' + name.displayName)
+        .put(blob, metadata)
+        .then(function (snapshot) {
+          console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+          window.location.href = 'index.html';
+        })
+        .catch(function (error) {
+          console.error('Upload failed:', error);
+        });
+    });
+  } else if (typeof canvas.msToBlob !== 'undefined') {
+    var blob = canvas.msToBlob();
+    canvas.toBlob(function () {
+      let image = new Image();
+      image.src = blob;
+      let metadata = {
+        contentType: 'image/png',
+      };
+      storageRef
+        .child('images/' + name.displayName)
+        .put(blob, metadata)
+        .then(function (snapshot) {
+          console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+          window.location.href = 'index.html';
+        })
+        .catch(function (error) {
+          console.error('Upload failed:', error);
+        });
+    });
+  }
 };

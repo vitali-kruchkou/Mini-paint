@@ -8,7 +8,7 @@ import Eraser from 'modules/Canvas/Toolbar/Tools/Eraser';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import allActions from '../../../store/actions/index';
 import ClearAll from 'modules/Canvas/Toolbar/Tools/ClearAll';
-
+import { saveImage } from '../../../firebase/index';
 const Toolbar = () => {
   const dispatch = useDispatch();
   const canvasRef = useSelector((state: RootStateOrAny) => state.currentCanvas);
@@ -83,6 +83,14 @@ const Toolbar = () => {
     }
   };
 
+  const handleSaveImage = () => {
+    if (!canvasRef) {
+      return;
+    }
+    saveImage('name', canvasRef.current);
+    console.log(canvasRef.current);
+  };
+
   return (
     <div className="App">
       <input type="color" onChange={event => changeFillColor(event)} />
@@ -107,6 +115,7 @@ const Toolbar = () => {
         <button onClick={redo}>Redo</button>
         <button onClick={setEraser}>Eraser</button>
         <button onClick={clearAll}>Clear canvas</button>
+        <button onClick={handleSaveImage}>Save image</button>
       </div>
     </div>
   );
