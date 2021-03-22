@@ -5,12 +5,6 @@ import Style from './StyledHomePage';
 import { SignOut } from '@firebaseConfig';
 
 const HomePage = () => {
-  const history = useHistory();
-
-  const goEdit = () => {
-    history.push('/addtodo');
-  };
-
   const signOut = () => {
     SignOut();
   };
