@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
-import { UserContext } from '@providers/UserProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Authentication from '@modules/Authentication/Authentication';
-import HomePage from '@modules/Canvas/HomePage/HomePage';
+import Authentication from '../modules/Authentication/Authentication';
+import Canvas from '../modules/Canvas/Canvas';
+import { UserContext } from '../providers/UserProvider';
 
 const Routes = () => {
   const user = useContext(UserContext);
 
   return user ? (
     <Router>
-      <HomePage />
+      <Canvas />
     </Router>
   ) : (
     <Router>

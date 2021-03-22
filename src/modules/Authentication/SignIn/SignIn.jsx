@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { signInWithGoogle } from '@firebaseConfig/index';
 import { Form, Input, Divider, Tooltip } from 'antd';
 import { Toaster } from 'react-hot-toast';
 import {
@@ -10,7 +9,7 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 import Style from './StyledSignIn';
-import { signInEmailAndPassword } from '@firebaseConfig';
+import { signInEmailAndPassword, signInWithGoogle } from '../../../firebase';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -44,10 +43,10 @@ const SignIn = () => {
         <Toaster />
         <Style.Form>
           <Form>
-            <Style.Title>Mini paint</Style.Title>
+            <Style.Title>Clever Todo List</Style.Title>
             <Divider />
             <p>
-              Welcome to Mini Paint.
+              Welcome to Clever Todo list.
               <br />
               Please login to your account
             </p>

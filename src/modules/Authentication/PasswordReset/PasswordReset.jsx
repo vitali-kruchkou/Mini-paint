@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Form, Input } from 'antd';
 import { Toaster } from 'react-hot-toast';
 import Style from './StyledPasswordReset';
-import { resetPassword } from '@firebaseConfig';
+import { resetPassword } from '../../../firebase';
+
 const PasswordReset = () => {
   const [email, setEmail] = useState('');
 
