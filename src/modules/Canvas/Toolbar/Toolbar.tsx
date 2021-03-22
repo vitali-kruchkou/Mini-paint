@@ -1,14 +1,16 @@
 /* eslint-disable no-self-assign */
 import React from 'react';
-import Brush from 'modules/Canvas/Toolbar/Tools/Brush';
-import Rectangle from 'modules/Canvas/Toolbar/Tools/Rectangle';
-import Circle from 'modules/Canvas/Toolbar/Tools/Circle';
-import Line from 'modules/Canvas/Toolbar/Tools/Line';
-import Eraser from 'modules/Canvas/Toolbar/Tools/Eraser';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import allActions from '../../../store/actions/index';
-import ClearAll from 'modules/Canvas/Toolbar/Tools/ClearAll';
-import { requestImage, saveImage } from '../../../firebase/index';
+
+import Brush from './Tools/Brush';
+import Rectangle from './Tools/Rectangle';
+import Circle from './Tools/Circle';
+import Line from './Tools/Line';
+import Eraser from './Tools/Eraser';
+import ClearAll from './Tools/ClearAll';
+import allActions from '@store/actions';
+import { saveImage, requestImage } from '@firebaseConfig/index';
+
 const Toolbar = () => {
   const dispatch = useDispatch();
   const canvasRef = useSelector((state: RootStateOrAny) => state.currentCanvas);
@@ -88,7 +90,6 @@ const Toolbar = () => {
       return;
     }
     saveImage('name_1', canvasRef.current);
-    console.log(canvasRef.current);
   };
 
   const handleRequestImage = () => {

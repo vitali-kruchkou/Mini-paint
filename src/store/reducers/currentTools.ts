@@ -3,8 +3,8 @@ import {
   SET_LINE_WIDTH,
   SET_STROKE_COLOR,
   SET_TOOL,
-} from '../actions/constans.d';
-import { ToolsAction, ToolsState } from '../../type/types.d';
+} from '@store/actions/constans.d';
+import { ToolsAction, ToolsState } from 'type/types';
 
 const initiaslState = {
   tool: undefined as undefined,

@@ -1,10 +1,10 @@
 import React from 'react';
-import Canvas from 'modules/Canvas/Canvas';
 
 import './App.css';
+import Routes from './routes/Routes';
 
 const App = () => {
-  return <Canvas />;
+  return <Routes />;
 };
 
 export default App;

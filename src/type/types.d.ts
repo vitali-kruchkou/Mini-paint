@@ -9,7 +9,13 @@ import {
   REDO,
   SET_REF,
   UNDO,
+  SIGN_IN,
+  SIGN_OUT,
+  RESET_PASSW,
+  SIGN_UP,
 } from 'store/actions/constans';
+import { ThunkAction } from 'redux-thunk';
+import auth from '../firebase/index';
 
 export type CanvasState = {
   canvasRef: HTMLCanvasElement | null;
@@ -60,3 +66,31 @@ export type ToolsAction =
       type: typeof SET_LINE_WIDTH;
       payload: number;
     };
+
+export type User = {
+  email: string;
+  uid: string;
+};
+
+export type AuthActions =
+  | {
+      type: typeof SIGN_IN;
+      payload: User | null;
+    }
+  | {
+      type: typeof SIGN_UP;
+      payload: User | null;
+    }
+  | {
+      type: typeof RESET_PASSW;
+    }
+  | {
+      type: typeof SIGN_OUT;
+    };
+
+export type AuthState = {
+  login: boolean;
+  user: User | null;
+};
+
+export type AppDispatch = typeof store.dispatch;

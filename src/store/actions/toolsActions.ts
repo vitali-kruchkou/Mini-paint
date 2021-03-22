@@ -1,4 +1,4 @@
-import { ToolType } from '../../type/types.d';
+import { ToolType } from 'type/types';
 import {
   SET_FILL_COLOR,
   SET_LINE_WIDTH,

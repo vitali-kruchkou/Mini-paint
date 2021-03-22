@@ -4,8 +4,8 @@ import {
   REDO,
   SET_REF,
   UNDO,
-} from '../actions/constans.d';
-import { CanvasActions, CanvasState } from '../../type/types.d';
+} from '@store/actions/constans.d';
+import { CanvasActions, CanvasState } from 'type/types';
 
 const initialState = {
   canvasRef: null as null,

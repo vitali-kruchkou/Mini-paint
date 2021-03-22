@@ -1,7 +1,7 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/storage';
-import 'firebase/firestore';
+import firebase from '@firebase/app';
+import '@firebase/auth';
+import '@firebase/storage';
+import '@firebase/firestore';
 import config from './firebaseConfig';
 import toast from 'react-hot-toast';
 
@@ -56,42 +56,44 @@ const getUserDocument = async uid => {
   }
 };
 
-export const resetPassword = (event, email) => {
-  event.preventDefault();
-  auth
-    .sendPasswordResetEmail(email)
-    .then(toast.success('Please check your email'))
-    .catch(() => {
-      toast.error('Please enter a valid email');
-    });
-};
-
-export const signInEmailAndPassword = async (event, email, password) => {
+export const resetPassword = async (event, email) => {
   event.preventDefault();
   try {
-    await auth.signInWithEmailAndPassword(email, password);
+    const ok = await auth.sendPasswordResetEmail(email);
+    toast.success('Please check your email!');
+    return ok;
+  } catch (err) {
+    toast.error('Please enter a valid email');
+  }
+};
+
+export const signInEmailAndPassword = async (email, password) => {
+  event.preventDefault();
+  try {
+    const ok = await auth.signInWithEmailAndPassword(email, password);
     toast.success('Good!');
+    return ok;
   } catch (error) {
     toast.error(error.message);
   }
 };
 
-export const signUpEmailAndPassword = async (event, email, password) => {
+export const signUpEmailAndPassword = async (email, password) => {
   event.preventDefault();
   try {
-    await auth.createUserWithEmailAndPassword(email, password);
+    const ok = await auth.createUserWithEmailAndPassword(email, password);
     toast.success('Create account');
+    return ok;
   } catch (error) {
     toast.error(error.message);
   }
 };
 
-export const SignOut = () => {
-  auth.signOut();
+export const SignOut = async () => {
+  await auth.signOut();
 };
 
 export const saveImage = (name, canvas) => {
-  // var canvas = document.querySelector("canvas");
   if (
     typeof canvas.toBlob !== 'undefined' ||
     typeof canvas.msToBlob !== 'undefined'

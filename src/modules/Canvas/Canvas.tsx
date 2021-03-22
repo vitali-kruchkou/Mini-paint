@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import './Canvas.css';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import allActions from '../../store/actions/index';
+
 import Toolbar from './Toolbar/Toolbar';
+import allActions from '@store/actions';
+
 interface CanvasProps {
   width: number;
   height: number;
@@ -24,18 +26,25 @@ const Canvas = ({ width, height }: CanvasProps) => {
     }
   };
 
+  const signOut = () => {
+    dispatch(allActions.authActions.signout());
+  };
+
   return (
-    <div className="App">
-      <canvas
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleMouseDown}
-        ref={canvasRef}
-        height={height}
-        width={width}
-        className="canvas"
-      />
-      <Toolbar />
-    </div>
+    <>
+      <button onClick={signOut}>Sign out</button>
+      <div className="App">
+        <canvas
+          onMouseDown={handleMouseDown}
+          onTouchStart={handleMouseDown}
+          ref={canvasRef}
+          height={height}
+          width={width}
+          className="canvas"
+        />
+        <Toolbar />
+      </div>
+    </>
   );
 };
 
