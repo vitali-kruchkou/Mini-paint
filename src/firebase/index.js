@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/storage';
 import 'firebase/firestore';
 import config from './firebaseConfig';
 import toast from 'react-hot-toast';
@@ -11,6 +12,8 @@ const firebaseApp = !firebase.apps.length
 
 export const auth = firebaseApp.auth();
 export const firestore = firebaseApp.firestore();
+const storage = firebaseApp.storage();
+export const storageRef = storage.ref();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => {
@@ -83,97 +86,62 @@ export const signUpEmailAndPassword = async (event, email, password) => {
   }
 };
 
-export const addTodoInList = (event, user, title, description, day) => {
-  event.preventDefault();
-  firestore.collection('todos').add({
-    userId: user.uid,
-    title: title,
-    description: description,
-    day: day,
-    done: false,
-  });
-};
-
-export const editTodoInList = (event, todo, setTodo, title, description) => {
-  event.preventDefault();
-  firestore.collection('todos').doc(todo.id).update({
-    title: title,
-    description: description,
-  });
-  firestore
-    .collection('todos')
-    .doc(todo.id)
-    .get()
-    .then(doc => {
-      if (doc.exists)
-        setTodo({
-          id: doc.id,
-          title: doc.data().title,
-          description: doc.data().description,
-          done: doc.data().done,
-        });
-    })
-    .then(() => {
-      toast.success('Update!');
-    });
-};
-
-export const deleteTodoInList = id => {
-  firestore
-    .collection('todos')
-    .doc(id)
-    .delete()
-    .then(() => {
-      toast.success('Deleted!');
-    });
-};
-
-export const updateDone = (todo, isDone) => {
-  firestore.collection('todos').doc(todo.id).update({
-    done: isDone,
-  });
-};
-
-export const filterCompleteTodo = () => {
-  firestore
-    .collection('todos')
-    .where('done', '==', true)
-    .get()
-    .then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        doc.ref
-          .delete()
-          .then(() => {
-            toast.success('Document successfully deleted!');
-          })
-          .catch(error => {
-            toast.error('Error removing document: ' + error);
-          });
-      });
-    });
-};
-
-export const unsubscribeFirestore = (user, day, setTodos) => {
-  firestore
-    .collection('todos')
-    .where('userId', '==', user.uid)
-    .where('day', '==', day)
-    .onSnapshot(snapshot => {
-      setTodos(
-        snapshot.docs.map(doc => {
-          return {
-            id: doc.id,
-            date: day,
-            title: doc.data().title,
-            description: doc.data().description,
-            done: doc.data().done,
-            datatime: new Date(),
-          };
-        }),
-      );
-    });
-};
-
 export const SignOut = () => {
   auth.signOut();
+};
+
+export const saveImage = (name, canvas) => {
+  // var canvas = document.querySelector("canvas");
+  if (
+    typeof canvas.toBlob !== 'undefined' ||
+    typeof canvas.msToBlob !== 'undefined'
+  ) {
+    canvas.toBlob(function (blob) {
+      let image = new Image();
+      image.src = blob;
+      let metadata = {
+        contentType: 'image/png',
+      };
+      storageRef
+        .child('images/' + name)
+        .put(blob, metadata)
+        .then(function (snapshot) {
+          console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+          window.location.href = 'index.html';
+        })
+        .catch(function (error) {
+          console.error('Upload failed:', error);
+        });
+    });
+  }
+};
+
+export const requestImage = () => {
+  firestore
+    .collection('users')
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        let name = 'name_1';
+        console.log(doc.data());
+        let title = doc.data().title;
+        let signlePerson = document.createElement('div');
+        signlePerson.className = 'person';
+        let info = document.createElement('p');
+        info.innerText = 'Name: ' + name + 'Title: ' + title;
+        signlePerson.append(info);
+        storageRef
+          .child('images/' + name)
+          .getDownloadURL()
+          .then(url => {
+            let img = document.createElement('img');
+            img.src = url;
+            signlePerson.append(img);
+            console.log(signlePerson);
+          });
+        let gallery = document.createElement('div');
+        gallery.append(signlePerson);
+        document.getElementById('root').appendChild(gallery);
+      });
+    });
 };
