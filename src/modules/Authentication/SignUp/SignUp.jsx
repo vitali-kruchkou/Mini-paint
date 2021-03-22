@@ -44,7 +44,8 @@ const SignUp = () => {
 
   const logginGoogle = () => {
     try {
-      signInWithGoogle();
+      dispatch(allActions.authActions.signInGoogle());
+      // signInWithGoogle();
     } catch (error) {
       toast.error(error.message);
     }

@@ -16,8 +16,10 @@ const storage = firebaseApp.storage();
 export const storageRef = storage.ref();
 
 const provider = new firebase.auth.GoogleAuthProvider();
-export const signInWithGoogle = () => {
-  auth.signInWithPopup(provider);
+
+export const signInWithGoogle = async () => {
+  const ok = await auth.signInWithPopup(provider);
+  return ok;
 };
 
 export const generateUserDocument = async (user, additionalData) => {

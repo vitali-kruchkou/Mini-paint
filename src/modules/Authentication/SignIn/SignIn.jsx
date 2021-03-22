@@ -29,7 +29,8 @@ const SignIn = () => {
   };
 
   const logginGoogle = () => {
-    signInWithGoogle();
+    // signInWithGoogle();
+    dispatch(allActions.authActions.signInGoogle());
   };
 
   const logginEmailAndPassword = event => {

@@ -9,6 +9,7 @@ import {
   SignOut,
   signUpEmailAndPassword,
   resetPassword,
+  signInWithGoogle,
 } from '@firebaseConfig/index';
 
 const sign_in = (user: User | null): AuthActions => {
@@ -66,6 +67,15 @@ const signup = (email: string, password: string) => {
   };
 };
 
+const signInGoogle = () => {
+  return (dispatch: AppDispatch) => {
+    signInWithGoogle().then(({ user }: any) => {
+      const { uid, email } = user;
+      dispatch(allActions.authActions.sign_in({ uid, email }));
+    });
+  };
+};
+
 const resetPassw = (email: string) => {
   return (dispatch: AppDispatch) => {
     resetPassword(email).then(() => {
@@ -83,4 +93,5 @@ export default {
   signout,
   signup,
   resetPassw,
+  signInGoogle,
 };
