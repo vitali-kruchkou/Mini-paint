@@ -13,10 +13,9 @@ import {
   SIGN_OUT,
   RESET_PASSW,
   SIGN_UP,
+  SIGN_ERROR,
 } from 'store/actions/constans';
-import { ThunkAction } from 'redux-thunk';
-import auth from '../firebase/index';
-
+import { RouteProps } from 'react-router-dom';
 export type CanvasState = {
   canvasRef: HTMLCanvasElement | null;
   undo: string[];
@@ -86,6 +85,9 @@ export type AuthActions =
     }
   | {
       type: typeof SIGN_OUT;
+    }
+  | {
+      type: typeof SIGN_ERROR;
     };
 
 export type AuthState = {

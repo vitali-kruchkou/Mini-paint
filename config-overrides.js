@@ -38,6 +38,7 @@ module.exports = function override(config) {
     '@routes': 'src/routes',
     '@store': 'src/store',
     '@assets': 'src/assets',
+    '@guards': 'src/guards',
   })(config);
 
   return config;

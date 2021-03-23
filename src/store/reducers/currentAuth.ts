@@ -1,5 +1,6 @@
 import {
   RESET_PASSW,
+  SIGN_ERROR,
   SIGN_IN,
   SIGN_OUT,
   SIGN_UP,
@@ -38,6 +39,12 @@ const currentAuth = (state: AuthState = initialState, action: AuthActions) => {
         ...state,
         login: true,
         user: action.payload,
+      };
+    }
+    case SIGN_ERROR: {
+      return {
+        ...state,
+        login: false,
       };
     }
     default:

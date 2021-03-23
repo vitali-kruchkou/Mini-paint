@@ -18,7 +18,8 @@
       "@assets/*": ["assets/*"],
       "@store/*": ["store/*"],
       "@type/*": ["type/*"],
-      "@firebaseConfig/*": ["firebase/*"]
+      "@firebaseConfig/*": ["firebase/*"],
+      "@guards/*": ["guards/*"]
     }
   }
 }

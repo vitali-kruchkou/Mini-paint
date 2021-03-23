@@ -17,11 +17,6 @@ export const storageRef = storage.ref();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
-export const signInWithGoogle = async () => {
-  const ok = await auth.signInWithPopup(provider);
-  return ok;
-};
-
 export const generateUserDocument = async (user, additionalData) => {
   if (!user) return;
 
@@ -71,24 +66,26 @@ export const resetPassword = async (event, email) => {
 
 export const signInEmailAndPassword = async (email, password) => {
   event.preventDefault();
-  try {
-    const ok = await auth.signInWithEmailAndPassword(email, password);
-    toast.success('Good!');
-    return ok;
-  } catch (error) {
-    toast.error(error.message);
-  }
+
+  const res = await auth.signInWithEmailAndPassword(email, password);
+  toast.success('Good!');
+  return res;
+};
+
+export const signInWithGoogle = async () => {
+  event.preventDefault();
+
+  const res = await auth.signInWithPopup(provider);
+  toast.success('Good!');
+  return res;
 };
 
 export const signUpEmailAndPassword = async (email, password) => {
   event.preventDefault();
-  try {
-    const ok = await auth.createUserWithEmailAndPassword(email, password);
-    toast.success('Create account');
-    return ok;
-  } catch (error) {
-    toast.error(error.message);
-  }
+
+  const res = await auth.createUserWithEmailAndPassword(email, password);
+  toast.success('Create account');
+  return res;
 };
 
 export const SignOut = async () => {

@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { RESET_PASSW, SIGN_IN, SIGN_OUT, SIGN_UP } from './constans.d';
+import {
+  RESET_PASSW,
+  SIGN_ERROR,
+  SIGN_IN,
+  SIGN_OUT,
+  SIGN_UP,
+} from './constans.d';
 
 import allActions from '.';
 import { AppDispatch, AuthActions, User } from 'type/types';
@@ -11,6 +17,7 @@ import {
   resetPassword,
   signInWithGoogle,
 } from '@firebaseConfig/index';
+import toast from 'react-hot-toast';
 
 const sign_in = (user: User | null): AuthActions => {
   return {
@@ -38,15 +45,25 @@ const reset_passw = (): AuthActions => {
   };
 };
 
+const sign_error = (): AuthActions => {
+  return {
+    type: SIGN_ERROR,
+  };
+};
+
 const signin = (email: string, password: string) => {
   return (dispatch: AppDispatch) => {
-    signInEmailAndPassword(email, password).then(({ user }: any) => {
-      if (user) {
-        const { uid, email } = user;
-        console.log(user);
-        dispatch(allActions.authActions.sign_in({ uid, email }));
-      }
-    });
+    signInEmailAndPassword(email, password)
+      .then(({ user }: any) => {
+        if (user !== undefined) {
+          const { uid, email } = user;
+          dispatch(allActions.authActions.sign_in({ uid, email }));
+        }
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+        dispatch(allActions.authActions.sign_error());
+      });
   };
 };
 
@@ -60,10 +77,15 @@ const signout = () => {
 
 const signup = (email: string, password: string) => {
   return (dispatch: AppDispatch) => {
-    signUpEmailAndPassword(email, password).then(({ user }: any) => {
-      const { uid, email } = user;
-      dispatch(allActions.authActions.sign_up({ uid, email }));
-    });
+    signUpEmailAndPassword(email, password)
+      .then(({ user }: any) => {
+        const { uid, email } = user;
+        dispatch(allActions.authActions.sign_up({ uid, email }));
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+        dispatch(allActions.authActions.sign_error());
+      });
   };
 };
 
@@ -94,4 +116,5 @@ export default {
   signup,
   resetPassw,
   signInGoogle,
+  sign_error,
 };
