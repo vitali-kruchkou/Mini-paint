@@ -1,6 +1,6 @@
 import Tool from './Tool';
 
-export default class Line extends Tool {
+export default class Rectangle extends Tool {
   constructor(canvas: HTMLCanvasElement) {
     super(canvas);
     this.listen();
@@ -22,20 +22,21 @@ export default class Line extends Tool {
     this.canvas.ontouchend = this.handleTouchEnd.bind(this);
   }
 
-  handleMouseDown(e: MouseEvent): void {
+  handleMouseDown(event: MouseEvent): void {
     this.mouseDown = true;
     this.context?.beginPath();
-    this.currentX = e.pageX - this.canvas.offsetLeft;
-    this.currentY = e.pageY - this.canvas.offsetTop;
-    this.context?.moveTo(this.currentX, this.currentY);
+    this.startX = event.pageX - this.canvas.offsetLeft;
+    this.startY = event.pageY - this.canvas.offsetTop;
     this.saved = this.canvas.toDataURL();
   }
 
-  handleMouseMove(e: MouseEvent): void {
+  handleMouseMove(event: MouseEvent): void {
     if (this.mouseDown) {
-      const currentX = e.pageX - this.canvas.offsetLeft;
-      const currentY = e.pageY - this.canvas.offsetTop;
-      this.draw(currentX, currentY);
+      const currentX = event.pageX - this.canvas.offsetLeft;
+      const currentY = event.pageY - this.canvas.offsetTop;
+      const width = currentX - this.startX;
+      const height = currentY - this.startY;
+      this.draw(this.startX, this.startY, width, height);
     }
   }
 
@@ -55,11 +56,10 @@ export default class Line extends Tool {
 
   handleTouchMove(event: TouchEvent): void {
     event.preventDefault();
-    const rect = this.canvas.getBoundingClientRect();
     const touch = event.touches[0];
     const mouseEvent = new MouseEvent('mousemove', {
-      clientX: touch.clientX - rect.left,
-      clientY: touch.clientY - rect.top,
+      clientX: touch.clientX - this.canvas.clientLeft,
+      clientY: touch.clientY - this.canvas.clientTop,
     });
     this.canvas.dispatchEvent(mouseEvent);
   }
@@ -70,7 +70,7 @@ export default class Line extends Tool {
     this.canvas.dispatchEvent(mouseEvent);
   }
 
-  draw(x: number, y: number): void {
+  draw(x: number, y: number, width: number, height: number): void {
     const img = new Image();
     img.src = this.saved;
     img.onload = () => {
@@ -78,8 +78,8 @@ export default class Line extends Tool {
       this.context?.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.context?.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
       this.context?.beginPath();
-      this.context?.moveTo(this.currentX, this.currentY);
-      this.context?.lineTo(x, y);
+      this.context?.rect(x, y, width, height);
+      this.context?.fill();
       this.context?.stroke();
     };
   }

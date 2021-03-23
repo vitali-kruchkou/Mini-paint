@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 import './Canvas.css';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-
-import Toolbar from './Toolbar/Toolbar';
+import Toolbar from '../Toolbar/Toolbar';
 import allActions from '@store/actions';
+import Style from './StyledCanvas.d';
+import handleResize from './resizeCanvas';
 
-interface CanvasProps {
-  width: number;
-  height: number;
-}
-
-const Canvas = ({ width, height }: CanvasProps) => {
+const Canvas = () => {
   const dispatch = useDispatch();
   const canvasRef = useSelector((state: RootStateOrAny) => state.currentCanvas);
 
@@ -30,27 +26,24 @@ const Canvas = ({ width, height }: CanvasProps) => {
     dispatch(allActions.authActions.signout());
   };
 
+  useEffect(() => {
+    handleResize(canvasRef);
+  }, []);
+
   return (
     <>
       <button onClick={signOut}>Sign out</button>
-      <div className="App">
+      <Style.Container>
         <canvas
           onMouseDown={handleMouseDown}
           onTouchStart={handleMouseDown}
           ref={canvasRef}
-          height={height}
-          width={width}
           className="canvas"
         />
         <Toolbar />
-      </div>
+      </Style.Container>
     </>
   );
-};
-
-Canvas.defaultProps = {
-  width: 800,
-  height: 600,
 };
 
 export default Canvas;

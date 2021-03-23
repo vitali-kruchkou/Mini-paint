@@ -1,8 +1,8 @@
-import Brush from 'modules/Canvas/Toolbar/Tools/Brush';
-import Circle from 'modules/Canvas/Toolbar/Tools/Circle';
-import Line from 'modules/Canvas/Toolbar/Tools/Line';
-import Rectangle from 'modules/Canvas/Toolbar/Tools/Rectangle';
-import ClearAll from 'modules/Canvas/Toolbar/Tools/ClearAll';
+import Brush from '@modules/Paint/Toolbar/Tools/Brush';
+import Circle from '@modules/Paint/Toolbar/Tools/Circle';
+import Line from '@modules/Paint/Toolbar/Tools/Line';
+import Rectangle from '@modules/Paint/Toolbar/Tools/Rectangle';
+import ClearAll from '@modules/Paint/Toolbar/Tools/ClearAll';
 import {
   PUSH_TO_REDO,
   PUSH_TO_UNDO,

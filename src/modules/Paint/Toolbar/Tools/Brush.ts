@@ -51,11 +51,10 @@ export default class Brush extends Tool {
 
   handleTouchMove(event: TouchEvent): void {
     event.preventDefault();
-    const rect = this.canvas.getBoundingClientRect();
     const touch = event.touches[0];
     const mouseEvent = new MouseEvent('mousemove', {
-      clientX: touch.clientX - rect.left,
-      clientY: touch.clientY - rect.top,
+      clientX: touch.clientX - this.canvas.clientLeft,
+      clientY: touch.clientY - this.canvas.clientTop,
     });
     this.canvas.dispatchEvent(mouseEvent);
   }
