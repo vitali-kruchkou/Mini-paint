@@ -7,7 +7,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import Style from './StyledSignUp';
 import { useDispatch } from 'react-redux';
 import allActions from '@store/actions';
-import { signInWithGoogle } from '@firebaseConfig/';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -45,7 +44,6 @@ const SignUp = () => {
   const logginGoogle = () => {
     try {
       dispatch(allActions.authActions.signInGoogle());
-      // signInWithGoogle();
     } catch (error) {
       toast.error(error.message);
     }

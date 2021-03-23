@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import {
   RESET_PASSW,
   SIGN_ERROR,
@@ -7,7 +5,6 @@ import {
   SIGN_OUT,
   SIGN_UP,
 } from './constans.d';
-
 import allActions from '.';
 import { AppDispatch, AuthActions, User } from 'type/types';
 import {

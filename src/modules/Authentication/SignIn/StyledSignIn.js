@@ -15,6 +15,7 @@ const Styled = {
     padding-top: 20px;
   `,
   Button: styled.div`
+    padding-left: 10px;
     width: 200px;
     & > .SignIn {
       width: 200px;
@@ -56,6 +57,7 @@ const Styled = {
     display: flex;
     flex-direction: column;
     text-align: center;
+    justify-content: center;
     border: 1px solid black;
     padding: 80px;
     box-shadow: inset 0 0 0 1px #337ab7;

@@ -15,7 +15,7 @@ import {
   SIGN_UP,
   SIGN_ERROR,
 } from 'store/actions/constans';
-import { RouteProps } from 'react-router-dom';
+
 export type CanvasState = {
   canvasRef: HTMLCanvasElement | null;
   undo: string[];

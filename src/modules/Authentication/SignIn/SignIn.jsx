@@ -11,7 +11,6 @@ import {
 } from '@ant-design/icons';
 import Style from './StyledSignIn';
 import allActions from '@store/actions';
-import { signInWithGoogle } from '@firebaseConfig/';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -29,7 +28,6 @@ const SignIn = () => {
   };
 
   const logginGoogle = () => {
-    // signInWithGoogle();
     dispatch(allActions.authActions.signInGoogle());
   };
 
@@ -43,10 +41,10 @@ const SignIn = () => {
         <Toaster />
         <Style.Form>
           <Form>
-            <Style.Title>Clever Todo List</Style.Title>
+            <Style.Title>Mini paint</Style.Title>
             <Divider />
             <p>
-              Welcome to Clever Todo list.
+              Welcome to Mini paint.
               <br />
               Please login to your account
             </p>
