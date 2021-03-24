@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { RootStateOrAny, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { requestImage } from '@firebaseConfig/firebaseDBQueries';
+import iconSignOut from '@assets/log-out.svg';
+import Style from './StyledGallery.d';
+import { Button } from 'antd';
 
 const Gallery = () => {
   const user = useSelector((state: RootStateOrAny) => state.currentAuth);
   const history = useHistory();
   const [pictures, setPictures] = useState([]);
   const { uid } = user.user;
-  console.log(user);
+
   useEffect(() => {
     const getAsyncPics = async () => {
       await requestImage(setPictures, uid);
@@ -23,21 +26,22 @@ const Gallery = () => {
 
   return (
     <>
+      <Button onClick={goBackHandler} type="primary">
+        <img src={iconSignOut} /> Paint
+      </Button>
       {pictures.length > 0 ? (
-        <div className="picture-list-wrapper">
-          <div className="picture-list" id="gallery">
+        <Style.Container>
+          <div>
             {pictures.map((picture, i) => {
-              return <img src={picture} alt="" key={i} />;
+              return <Style.Img src={picture} alt="" key={i} />;
             })}
           </div>
-        </div>
+        </Style.Container>
       ) : (
-        <div className="empty-list">
+        <Style.Text>
           <h2>Task list is empty</h2>
-        </div>
+        </Style.Text>
       )}
-
-      <button onClick={goBackHandler}>Paint</button>
     </>
   );
 };

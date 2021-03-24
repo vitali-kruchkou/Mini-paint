@@ -9,7 +9,6 @@ const handleResize = (refCanvas: React.RefObject<HTMLCanvasElement>) => {
   refCanvas.current.height = parseInt(
     getComputedStyle(parentNode).getPropertyValue('height'),
   );
-  console.log(refCanvas.current.height);
 };
 
 export default handleResize;

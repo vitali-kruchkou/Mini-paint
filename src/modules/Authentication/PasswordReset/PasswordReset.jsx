@@ -21,6 +21,7 @@ const PasswordReset = () => {
     dispatch(allActions.authActions.resetPassw(email));
     setEmail('');
   };
+
   return (
     <Style.Container>
       <Toaster />

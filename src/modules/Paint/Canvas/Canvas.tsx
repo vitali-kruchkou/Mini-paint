@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import './Canvas.css';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import Toolbar from '../Toolbar/Toolbar';
 import allActions from '@store/actions';
 import Style from './StyledCanvas.d';
 import handleResize from './resizeCanvas';
 import { useHistory } from 'react-router';
+import iconSignOut from '@assets/log-out.svg';
+import iconGallery from '@assets/gallery.svg';
+import Styled from './StyledCanvas.d';
 
 const Canvas = () => {
   const dispatch = useDispatch();
@@ -37,16 +39,23 @@ const Canvas = () => {
 
   return (
     <>
-      <button onClick={signOut}>Sign out</button>
+      <Styled.Buttons>
+        <button onClick={signOut}>
+          <img src={iconSignOut} />
+          Sign out
+        </button>
+        <button onClick={galleryLinkHandler}>
+          <img src={iconGallery} />
+          Gallery
+        </button>
+      </Styled.Buttons>
       <Style.Container>
         <canvas
           onMouseDown={handleMouseDown}
           onTouchStart={handleMouseDown}
           ref={canvasRef}
-          className="canvas"
         />
         <Toolbar />
-        <button onClick={galleryLinkHandler}>Gallery</button>
       </Style.Container>
     </>
   );

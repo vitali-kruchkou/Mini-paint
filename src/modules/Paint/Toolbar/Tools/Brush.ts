@@ -69,6 +69,5 @@ export default class Brush extends Tool {
     this.context.globalCompositeOperation = 'source-over';
     this.context?.lineTo(x, y);
     this.context?.stroke();
-    console.log('Draw brush');
   }
 }

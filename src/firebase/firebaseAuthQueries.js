@@ -4,15 +4,10 @@ import { auth, generateUserDocument } from '.';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
-export const resetPassword = async (event, email) => {
-  event.preventDefault();
-  try {
-    const ok = await auth.sendPasswordResetEmail(email);
-    toast.success('Please check your email!');
-    return ok;
-  } catch (err) {
-    toast.error('Please enter a valid email');
-  }
+export const resetPassword = async email => {
+  const res = await auth.sendPasswordResetEmail(email);
+  toast.success('Please check your email!');
+  return res;
 };
 
 export const signInEmailAndPassword = async (email, password) => {

@@ -24,14 +24,14 @@ const signIn = (user: User | null): AuthActions => {
   };
 };
 
-const sign_up = (user: User | null) => {
+const signUp = (user: User | null) => {
   return {
     type: SIGN_UP,
     payload: user,
   };
 };
 
-const sign_out = (): AuthActions => {
+const signOut = (): AuthActions => {
   return {
     type: SIGN_OUT,
   };
@@ -68,7 +68,7 @@ const signin = (email: string, password: string) => {
 const signout = () => {
   return (dispatch: AppDispatch) => {
     SignOut().then(() => {
-      dispatch(allActions.authActions.sign_out());
+      dispatch(allActions.authActions.signOut());
     });
   };
 };
@@ -78,7 +78,7 @@ const signup = (email: string, password: string) => {
     signUpEmailAndPassword(email, password)
       .then(({ user }: any) => {
         const { uid, email } = user;
-        dispatch(allActions.authActions.sign_up({ uid, email }));
+        dispatch(allActions.authActions.signUp({ uid, email }));
       })
       .catch(({ message }) => {
         toast.error(message);
@@ -98,16 +98,21 @@ const signInGoogle = () => {
 
 const resetPassw = (email: string) => {
   return (dispatch: AppDispatch) => {
-    resetPassword(email).then(() => {
-      dispatch(allActions.authActions.reset_passw());
-    });
+    resetPassword(email)
+      .then(() => {
+        dispatch(allActions.authActions.reset_passw());
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+        dispatch(allActions.authActions.sign_error());
+      });
   };
 };
 
 export default {
   signIn,
-  sign_out,
-  sign_up,
+  signOut,
+  signUp,
   reset_passw,
   signin,
   signout,

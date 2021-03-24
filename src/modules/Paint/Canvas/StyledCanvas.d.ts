@@ -5,20 +5,24 @@ const Styled = {
     max-width: 775px;
     height: 500px;
     margin: 0 auto;
-    border: 1px solid green;
     @media (max-width: 768px) {
-      max-width: 400px;
+      max-width: 775px;
       margin: 0 auto;
     }
     @media (max-width: 575px) {
-      max-width: 400px;
-      max-height: 200px;
+      max-width: 550px;
+      max-height: 400px;
       margin: 0 auto;
-      margin-top: 20px;
-      & > div {
-        font-size: 10px;
-      }
     }
+    & > canvas {
+      border: 1px solid gray;
+      background: #f7f2f2;
+    }
+  `,
+  Buttons: styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   `,
 };
 
