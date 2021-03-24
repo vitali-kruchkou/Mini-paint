@@ -2,6 +2,7 @@
   "name": "mini-paint",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://vitali-kruchkou.github.io/Innowise-Lab-Internship-Level-2-Mini-paint/",
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@testing-library/jest-dom": "^5.11.9",
@@ -34,7 +35,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
