@@ -5,11 +5,12 @@ import Toolbar from '../Toolbar/Toolbar';
 import allActions from '@store/actions';
 import Style from './StyledCanvas.d';
 import handleResize from './resizeCanvas';
+import { useHistory } from 'react-router';
 
 const Canvas = () => {
   const dispatch = useDispatch();
   const canvasRef = useSelector((state: RootStateOrAny) => state.currentCanvas);
-
+  const history = useHistory();
   useEffect(() => {
     dispatch(allActions.canvasActions.setRef(canvasRef.current));
   }, []);
@@ -30,6 +31,10 @@ const Canvas = () => {
     handleResize(canvasRef);
   }, []);
 
+  const galleryLinkHandler = () => {
+    history.push('/gallery');
+  };
+
   return (
     <>
       <button onClick={signOut}>Sign out</button>
@@ -41,6 +46,7 @@ const Canvas = () => {
           className="canvas"
         />
         <Toolbar />
+        <button onClick={galleryLinkHandler}>Gallery</button>
       </Style.Container>
     </>
   );

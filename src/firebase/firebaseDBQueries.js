@@ -33,9 +33,9 @@ export const saveImage = (canvas, uid) => {
   }
 };
 
-export const requestImage = async (setPictures, user, setPicDates) => {
+export const requestImage = async (setPictures, uid, setPicDates) => {
   storageRef
-    .child('images/' + user.user.uid + '/')
+    .child('images/' + uid + '/')
     .listAll()
     .then(async result => {
       let picArr = [];
@@ -47,11 +47,11 @@ export const requestImage = async (setPictures, user, setPicDates) => {
         }),
       );
       await setPictures([...picArr]);
-      storageRef.child('images/' + user.user.uid + '/');
+      storageRef.child('images/' + uid + '/');
     });
   firestore
     .collection('pictures')
-    .where('userId', '==', user.user.uid)
+    .where('userId', '==', uid)
     .onSnapshot(async snapshot => {
       await setPicDates(
         snapshot.docs.map(doc => {
@@ -63,6 +63,6 @@ export const requestImage = async (setPictures, user, setPicDates) => {
       );
     });
   return () => {
-    requestImage(setPictures, user, setPicDates);
+    requestImage(setPictures, uid, setPicDates);
   };
 };

@@ -38,7 +38,7 @@ const SignUp = () => {
 
   const createUser = event => {
     dispatch(allActions.authActions.signup(email, password));
-    history.push('/calendar');
+    history.push('/canvas');
   };
 
   const logginGoogle = () => {

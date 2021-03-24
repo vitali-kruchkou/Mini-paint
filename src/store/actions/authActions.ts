@@ -17,7 +17,7 @@ import {
   signUpEmailAndPassword,
 } from '@firebaseConfig/firebaseAuthQueries';
 
-const sign_in = (user: User | null): AuthActions => {
+const signIn = (user: User | null): AuthActions => {
   return {
     type: SIGN_IN,
     payload: user,
@@ -55,7 +55,7 @@ const signin = (email: string, password: string) => {
       .then(({ user }: any) => {
         if (user !== undefined) {
           const { uid, email } = user;
-          dispatch(allActions.authActions.sign_in({ uid, email }));
+          dispatch(allActions.authActions.signIn({ uid, email }));
         }
       })
       .catch(({ message }) => {
@@ -91,7 +91,7 @@ const signInGoogle = () => {
   return (dispatch: AppDispatch) => {
     signInWithGoogle().then(({ user }: any) => {
       const { uid, email } = user;
-      dispatch(allActions.authActions.sign_in({ uid, email }));
+      dispatch(allActions.authActions.signIn({ uid, email }));
     });
   };
 };
@@ -105,7 +105,7 @@ const resetPassw = (email: string) => {
 };
 
 export default {
-  sign_in,
+  signIn,
   sign_out,
   sign_up,
   reset_passw,
